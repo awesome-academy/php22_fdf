@@ -1,7 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use http\Env\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -16,7 +17,12 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
+        'address',
+        'phone',
+        'is_admin',
     ];
 
     /**
@@ -25,7 +31,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
     /**
@@ -36,4 +43,24 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function feedBack(){
+
+        return $this->hasMany(FeedBack::class);
+    }
+
+    public function suggest(){
+
+        return $this->hasMany(Suggest::class);
+    }
+
+    public function rate(){
+
+        return $this->hasMany(Rate::class);
+    }
+
+    public function order(){
+
+        return $this->hasMany(Order::class);
+    }
 }
