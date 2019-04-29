@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
     {!! Html::script('js/app.js') !!}
-    {!! Html::script('js/task.js') !!}
+    {!! Html::script('js/logout.js') !!}
     {!! Html::style('css/app.css') !!}
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
@@ -15,6 +15,7 @@
 <body>
 <div id="app">
     <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+        @include('admin.include.toast')
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
                 {{ config('app.name', 'Laravel') }}
@@ -38,7 +39,7 @@
                         </li>
                         @if (Route::has('register'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{@lang('header.register)</a>
+                                <a class="nav-link" href="{{ route('register') }}">@lang('header.register')</a>
                             </li>
                         @endif
                     @else
@@ -59,9 +60,31 @@
         </div>
     </nav>
 
-    <main class="py-4">
-        @yield('content')
-    </main>
+    <div class="container">
+        <div class="row">
+            @if(Auth::check())
+                <div class="col-lg-2" >
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <a href="{{route('home')}}">@lang('header.home')</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href=" {{route('admin.user.index')}} ">@lang('header.users.title_user')</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href=" {{route('admin.user.create')}} ">@lang('header.users.title_new_user')</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href=" {{route('admin.user.edit', ['id' => Auth::id()])}} ">@lang('header.users.title_profile')</a>
+                        </li>
+                    </ul>
+                </div>
+            @endif
+            <div class="col-lg-10">
+                @yield('content')
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>
