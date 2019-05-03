@@ -34,4 +34,16 @@ return [
         'btn_store' => 'Store User',
         'btn_update' => 'Update User',
     ],
+    'category' => [
+        'title_create' => 'Create Category',
+        'title_category' => 'Categories',
+        'title_edit' => 'Edit Category',
+        'col_category' => 'Category Name ',
+        'col_parent' => 'Parent',
+        'col_edit' => 'Edit',
+        'lb_description' => 'Description',
+        'no_category' => 'No Category',
+        'btn_store' => 'Store Category',
+        'btn_update' => 'Update Category',
+    ],
 ];
