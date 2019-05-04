@@ -65,6 +65,7 @@ class UsersController extends Controller
         try {
             $user = User::findOrFail($id);
         } catch (\Exception $e) {
+
             return redirect()->route('admin.user.index');
         }
 
@@ -82,6 +83,7 @@ class UsersController extends Controller
         try {
             $user = User::findOrFail($id);
         } catch (\Exception $e) {
+
             return redirect()->route('admin.user.index');
         }
 
@@ -123,6 +125,7 @@ class UsersController extends Controller
             $user = User::findOrFail($id);
             $user->delete();
         } catch (\Exception $e) {
+            
             return redirect()->route('users');
         }
         Session::flash('success', 'Successfully deleted user');

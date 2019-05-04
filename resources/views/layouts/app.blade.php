@@ -77,6 +77,12 @@
                         <li class="list-group-item">
                             <a href=" {{route('admin.user.edit', ['id' => Auth::id()])}} ">@lang('header.users.title_profile')</a>
                         </li>
+                        <li class="list-group-item">
+                            <a href=" {{route('admin.category.index')}} ">@lang('header.category.title_category')</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href=" {{route('admin.category.create')}} ">@lang('header.category.title_create')</a>
+                        </li>
                     </ul>
                 </div>
             @endif
