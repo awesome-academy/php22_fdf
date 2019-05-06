@@ -48,7 +48,7 @@ class CategoriesController extends Controller
             'parent_id' => $request->parent_id,
             'slug' => Str::slug($request->name),
         ]);
-        Session::flash('success', 'Category created successfully');
+        Session::flash('success', @trans('message.success.category.create_category'));
 
         return redirect()->route('admin.category.index');
     }
@@ -104,7 +104,7 @@ class CategoriesController extends Controller
 
             return redirect()->route('admin.category.index');
         }
-        Session::flash('success', 'Category updated successfully');
+        Session::flash('success', @trans('message.success.category.update_category'));
 
         return redirect()->route('admin.category.index');
     }
@@ -124,7 +124,7 @@ class CategoriesController extends Controller
 
             return redirect()->route('admin.category.index');
         }
-        Session::flash('success', 'Successfully deleted category');
+        Session::flash('success', @trans('message.success.category.delete_category'));
 
         return redirect()->route('admin.category.index');
     }

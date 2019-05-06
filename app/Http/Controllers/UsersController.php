@@ -49,7 +49,7 @@ class UsersController extends Controller
             'phone' => '',
             'is_admin' => true,
         ]);
-        Session::flash('success', 'User created successfully');
+        Session::flash('success', @trans('message.success.user.create_user'));
 
         return redirect()->route('admin.user.index');
     }
@@ -108,7 +108,7 @@ class UsersController extends Controller
             $user->password = bcrypt($request->newpassword);
         }
         $user->save();
-        Session::flash('success', 'Successfully updated user');
+        Session::flash('success', @trans('message.success.user.update_user'));
 
         return redirect()->back();
     }
@@ -128,7 +128,7 @@ class UsersController extends Controller
             
             return redirect()->route('users');
         }
-        Session::flash('success', 'Successfully deleted user');
+        Session::flash('success', @trans('message.success.user.delete_user'));
 
         return redirect()->route('admin.user.index');
     }
