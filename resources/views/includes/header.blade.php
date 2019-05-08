@@ -16,10 +16,10 @@
                                 <li class="drop"><a href="{{ route('index') }}">@lang('header.home')</a></li>
                                 @foreach ($categories as $category)
                                     @if ($category->childrens()->count() > config('setting.default_value_0'))
-                                        <li class="drop"><a href="">{{ $category->name }}</a>
+                                        <li class="drop"><a href="{{ route('category.single', [ 'slug' => $category->slug ]) }}">{{ $category->name }}</a>
                                             <ul class="dropdown__menu">
                                                 @foreach ($category->childrens as $cate)
-                                                        <li><a href="">{{ $cate->name }}</a></li>
+                                                        <li><a href="{{ route('category.single', [ 'slug' => $cate->slug ]) }}">{{ $cate->name }}</a></li>
                                                 @endforeach
                                             </ul>
                                         </li>

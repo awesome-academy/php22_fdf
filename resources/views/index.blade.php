@@ -41,6 +41,9 @@
                                         </div>
                                     </div>
                                 </div>
+                            @foreach ($products as $product)
+                                @include('includes.product')
+                            @endforeach
                         </div>
                     </div>
                 </div>
