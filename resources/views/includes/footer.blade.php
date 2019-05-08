@@ -78,15 +78,20 @@
         </ul>
         <div class="accountbox__inner tab-content" id="myTabContent">
             <div class="accountbox__login tab-pane fade show active" id="log" role="tabpanel" aria-labelledby="log-tab">
-                {!! Form::open([ 'method' => 'POST']) !!}
+                {!! Form::open([ 'route' => 'postLogin', 'method' => 'POST']) !!}
                     <div class="single-input">
-                        {!! Form::text('email','', [ 'class' => 'cr-round--lg', 'placeholder' => @trans('layouts.footer.your_mail')]) !!}
+                        {!! Form::text('email', '', [ 'class' => 'cr-round--lg', 'placeholder' => @trans('layouts.footer.your_mail'), 'required' => 'required']) !!}
                     </div>
                     <div class="single-input">
-                        {!! Form::password('password', [ 'class' => 'cr-round--lg', 'placeholder' => @trans('header.password')]) !!}
+                        {!! Form::password('password', [ 'class' => 'cr-round--lg', 'placeholder' => @trans('header.password'), 'required' => 'required']) !!}
                     </div>
                     <div class="single-input">
-                        {!! Form::button('<span>Go</span>',['class' => 'food__btn', 'type' => 'submit']) !!}
+                        {!! Form::button('<span>' . @trans('layouts.footer.go') .'</span>',['class' => 'food__btn', 'type' => 'submit']) !!}
+                    </div>
+                    <div class="single-input">
+                        @if(Session::has('status'))
+                            <span class="text-danger">{{ Session::get('status') }}</span>
+                        @endif
                     </div>
                     <div class="accountbox-login__others">
                         <h6>@lang('layouts.footer.login_with')</h6>
@@ -102,12 +107,12 @@
             </div>
 
             <div class="accountbox__register tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                {!! Form::open([]) !!}
+                {!! Form::open(['route' => 'postRegister', 'method' => 'post']) !!}
                     <div class="single-input">
-                        {!! Form::text('user_name','', [ 'class' => 'cr-round--lg', 'placeholder' => @trans('header.name')]) !!}
+                        {!! Form::text('user_name', '', [ 'class' => 'cr-round--lg', 'placeholder' => @trans('header.name')]) !!}
                     </div>
                     <div class="single-input">
-                        {!! Form::text('user_email','', [ 'class' => 'cr-round--lg', 'placeholder' => @trans('header.mail')]) !!}
+                        {!! Form::text('user_email', '', [ 'class' => 'cr-round--lg', 'placeholder' => @trans('header.email')]) !!}
                     </div>
                     <div class="single-input">
                         {!! Form::password('password', [ 'class' => 'cr-round--lg', 'placeholder' => @trans('header.password')]) !!}
@@ -116,7 +121,7 @@
                         {!! Form::password('confirm_password', [ 'class' => 'cr-round--lg', 'placeholder' => @trans('header.confirm_password')]) !!}
                     </div>
                     <div class="single-input">
-                        {!! Form::button('<span>Sign Up</span>',['class' => 'food__btn', 'type' => 'submit']) !!}
+                        {!! Form::button('<span>' . @trans('layouts.footer.sign_up') .'</span>', ['class' => 'food__btn', 'type' => 'submit']) !!}
                     </div>
                 {!! Form::close() !!}
             </div>

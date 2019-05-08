@@ -39,5 +39,6 @@ return [
     ],
     'fail' => [
         'edit_product' => 'No Foung ID product',
+        'login' => 'Login failed. Check the user email and password and try again',
     ],
 ];
