@@ -20,8 +20,24 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function (){
+    Route::get('product/trashed', [
+        'as' => 'product.trashed',
+        'uses' => 'ProductController@trashed',
+    ]);
+
+    Route::delete('product/kill/{id}', [
+        'as' => 'product.kill',
+        'uses' => 'ProductController@kill'
+    ]);
+
+    Route::get('product/restore/{id}', [
+        'as' => 'product.restore',
+        'uses' => 'ProductController@restore',
+    ]);
 
     Route::resource('user', 'UsersController', ['as' => 'admin']);
 
     Route::resource('category', 'CategoriesController', ['as' => 'admin']);
+
+    Route::resource('product', 'ProductController', ['as' => 'admin']);
 });

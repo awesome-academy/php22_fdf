@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'category_id',
         'name',
@@ -13,12 +16,13 @@ class Product extends Model
         'price',
         'discount',
         'slug',
+        'quantity',
         'rating',
     ];
 
     public function category(){
 
-        return $this->belongsTo(Catetory::class);
+        return $this->belongsTo(Category::class);
     }
 
     public function rate(){

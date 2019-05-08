@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model
 {
-    protected $filltable = [
+    protected $fillable = [
         'url',
         'product_id',
     ];

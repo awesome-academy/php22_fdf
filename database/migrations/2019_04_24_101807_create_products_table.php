@@ -20,8 +20,10 @@ class CreateProductsTable extends Migration
             $table->string('description');
             $table->double('price');
             $table->float('discount')->nullable();
+            $table->float('quantity');
             $table->string('slug');
             $table->integer('rating');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

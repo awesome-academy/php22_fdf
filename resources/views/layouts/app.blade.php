@@ -83,6 +83,15 @@
                         <li class="list-group-item">
                             <a href=" {{route('admin.category.create')}} ">@lang('header.category.title_create')</a>
                         </li>
+                        <li class="list-group-item">
+                            <a href=" {{route('admin.product.index')}} ">@lang('header.product.title_product')</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href=" {{route('admin.product.create')}} ">@lang('header.product.title_create')</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href=" {{route('product.trashed')}} ">@lang('header.product.col_trash')</a>
+                        </li>
                     </ul>
                 </div>
             @endif
