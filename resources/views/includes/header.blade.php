@@ -37,16 +37,26 @@
                             @guest
                                 <a class="accountbox-trigger" href="#"><i class="zmdi zmdi-account-o"></i></a>
                             @else
-                                <div class="nav-item dropdown">
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                        {{ Auth::user()->name }} <span class="caret" ></span>
-                                    </a>
-
-                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                        <span class="dropdown-item" id="logout-span-user">
-                                            @lang('header.logout')
-                                        </span>
-                                    </div>
+                                <div class="main__menu__wrap">
+                                    <nav class="main__menu__nav d-none d-lg-block">
+                                        <ul class="mainmenu">
+                                            <li class="drop"><a id="user_name">{{ Auth::user()->name }}</a>
+                                                <ul class="dropdown__menu">
+                                                    @if (Auth::user()->isAdmin())
+                                                        <li>
+                                                            <a href="{{ route('home') }}">@lang('header.users.col_admin')</a>
+                                                        </li>
+                                                    @endif
+                                                    <li>
+                                                        <a href="">@lang('header.users.title_profile')</a>
+                                                    </li>
+                                                    <li id="logout-span">
+                                                        <a>@lang('header.logout')</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </nav>
                                 </div>
                             @endguest
                         </div>

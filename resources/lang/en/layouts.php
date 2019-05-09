@@ -24,6 +24,8 @@ return [
         'total' => 'Total',
         'view_cart' => 'View Cart',
         'checkout' => 'Checkout',
+        'sign_up' => 'Sign Up',
+        'go' => 'Go',
     ],
     'header' => [
       'title_contact' => 'contact',

@@ -20,11 +20,21 @@ Route::get('/index', [
     'uses' => 'StoreController@index',
 ]);
 
+Route::post('/postLogin', [
+    'as' => 'postLogin',
+    'uses' => 'LoginUserController@postLogin',
+]);
+
+Route::post('/postRegister', [
+    'as' => 'postRegister',
+    'uses' => 'RegisterUserController@postRegister',
+]);
+
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function (){
+    Route::get('home', 'HomeController@index')->name('home');
+
     Route::get('product/trashed', [
         'as' => 'product.trashed',
         'uses' => 'ProductController@trashed',
