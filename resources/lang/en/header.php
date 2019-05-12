@@ -62,4 +62,21 @@ return [
         'btn_update' => 'Update Product',
         'no_post' => 'No Product',
     ],
+    'order' => [
+        'title' => 'Orders',
+        'id' => 'ID',
+        'user_name' => 'User Name',
+        'price'=> 'Price',
+        'date'=> 'Date',
+        'status'=> 'Status',
+        'total_price' => 'Total Price: ',
+        'trading_code' => ' Trading Code ',
+        'user_order' => 'User\'s Orders',
+        'no_order' => 'No Orders'
+    ],
+    'suggest' => [
+        'title' => 'Suggests',
+        'content' => 'Content',
+        'no_suggest' => 'No Suggest'
+    ],
 ];

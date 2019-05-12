@@ -35,6 +35,21 @@ Auth::routes();
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function (){
     Route::get('home', 'HomeController@index')->name('home');
 
+    Route::get('/order/index',[
+        'as' => 'admin.order.index',
+        'uses' => 'AdminOrderController@index',
+    ]);
+
+    Route::get('/suggest',[
+        'as' => 'admin.suggest',
+        'uses' => 'SuggestController@index',
+    ]);
+
+    Route::get('/suggest/{id}/{status}',[
+        'as' => 'admin.changeStatus',
+        'uses' => 'SuggestController@changeStatus',
+    ]);
+
     Route::get('product/trashed', [
         'as' => 'product.trashed',
         'uses' => 'ProductController@trashed',

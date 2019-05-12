@@ -69,6 +69,12 @@
                             <a href="{{route('home')}}">@lang('header.home')</a>
                         </li>
                         <li class="list-group-item">
+                            <a href="{{route('admin.order.index')}}">@lang('header.order.title')</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href=" {{route('admin.suggest')}} ">@lang('header.suggest.title')</a>
+                        </li>
+                        <li class="list-group-item">
                             <a href=" {{route('admin.user.index')}} ">@lang('header.users.title_user')</a>
                         </li>
                         <li class="list-group-item">

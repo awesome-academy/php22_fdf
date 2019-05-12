@@ -21,11 +21,24 @@ class Order extends Model
 
     public function product(){
 
-        return $this->belongsToMany(Product::class, 'order_product', 'order_id', 'product_id');
+        return $this->belongsTo(Product::class);
     }
 
     public function transaction(){
 
         return $this->belongsTo(Transaction::class);
     }
+
+    public function getStatus(){
+        if($this->status == config('setting.default_value_0')){
+
+            return @trans('message.status_pending');
+        }elseif ($this->status == config('setting.default_value_1')){
+
+            return @trans('message.status_done');
+        }
+
+        return @trans('message.status_reject');
+    }
+
 }
