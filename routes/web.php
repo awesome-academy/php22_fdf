@@ -30,6 +30,16 @@ Route::post('/postRegister', [
     'uses' => 'RegisterUserController@postRegister',
 ]);
 
+Route::get('/redirect/{social}', [
+    'as' => 'redirect.social',
+    'uses' => 'SocialAuthController@redirect',
+]);
+
+Route::get('/callback/{social}', [
+    'as' => 'callback.social',
+    'uses' => 'SocialAuthController@callback',
+]);
+
 Auth::routes();
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function (){
