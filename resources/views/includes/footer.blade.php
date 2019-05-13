@@ -97,7 +97,7 @@
                         <h6>@lang('layouts.footer.login_with')</h6>
                         <div class="social-icons">
                             <ul>
-                                <li class="facebook"><a href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a></li>
+                                <li class="facebook"><a href="{{ route('redirect.social', ['social' => 'facebook']) }}"><i class="fa fa-facebook"></i></a></li>
                                 <li class="twitter"><a href="https://twitter.com/"><i class="fa fa-twitter"></i></a></li>
                                 <li class="pinterest"><a href="#"><i class="fa fa-google-plus"></i></a></li>
                             </ul>
