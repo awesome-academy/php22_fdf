@@ -64,12 +64,14 @@ class UsersController extends Controller
     {
         try {
             $user = User::findOrFail($id);
+            $transactions = $user->transactions;
         } catch (\Exception $e) {
 
             return redirect()->route('admin.user.index');
         }
 
-        return view('admin.users.detail', compact('user'));
+        return view('admin.users.detail')->with('transactions', $transactions)
+                                               ->with('user', $user);
     }
 
     /**

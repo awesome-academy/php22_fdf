@@ -13,6 +13,10 @@ return [
     'add_fail' => 'Add Fail',
     'delete_success' => 'Delete Success',
     'delete_fail' => 'Delete Fail',
+    'status_done' => 'Done',
+    'status_unpaid' => 'Unpaid',
+    'status_pending' => 'Pending',
+    'status_reject' => 'Reject',
     'info' => [
         'category' => [
             'create_category' => 'You must have some categories before attempting to create to a product',
@@ -36,9 +40,11 @@ return [
             'update_user' => 'You successfully updated User',
             'delete_user' => 'You successfully deleted User',
         ],
+        'suggest' => 'Successfully',
     ],
     'fail' => [
         'edit_product' => 'No Foung ID product',
         'login' => 'Login failed. Check the user email and password and try again',
+        'suggest' => 'Change Fail'
     ],
 ];

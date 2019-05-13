@@ -18,4 +18,13 @@ class Transaction extends Model
 
         return $this->hasMany(Order::class);
     }
+
+    public function getStatus(){
+        if($this->status == config('setting.default_value_0')){
+
+            return @trans('message.status_done');
+        }
+
+        return  @trans('message.status_unpaid');
+    }
 }
