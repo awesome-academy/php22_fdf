@@ -39,4 +39,9 @@ class Product extends Model
 
         return $this->hasMany(Image::class);
     }
+
+    public function newPrice(){
+
+        return $this->price*(1 - $this->discount * 0.1);
+    }
 }

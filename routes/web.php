@@ -38,6 +38,15 @@ Route::get('/redirect/{social}', [
 Route::get('/callback/{social}', [
     'as' => 'callback.social',
     'uses' => 'SocialAuthController@callback',
+
+Route::get('/product/{slug}', [
+    'as' => 'product.single',
+    'uses' => 'StoreController@singleProduct',
+]);
+
+Route::get('/category/{slug}', [
+    'as' => 'category.single',
+    'uses' => 'StoreController@singleCategory',
 ]);
 
 Auth::routes();

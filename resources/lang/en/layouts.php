@@ -14,7 +14,7 @@ return [
         'wednesday' => 'Wednesday',
         'thursday' => 'Thursday',
         'friday' => 'Friday',
-        'staturday' => 'Staturday',
+        'saturday' => 'Saturday',
         'sunday' => 'Sunday',
         'your_mail' => 'Your Mail',
         'login_with' => 'Or login with',
@@ -33,6 +33,18 @@ return [
     'index' => [
         'cate_all' => 'All',
         'btn_order_now' => 'Order Now',
+    ],
+    'single' => [
+        'food_type' => 'Food Type :',
+        'add_cart'  => 'Add To Cart',
+        'description' => 'Description',
+        'review' => 'Reviews',
+        'popular_menu' => 'Popular Menu',
+        'special' => 'Special',
+        'offer' => 'Offer',
+        'search' => 'Search',
+        'recent_product' => 'Recent Product',
+        'categories' => 'Categories',
     ],
 
 ];
