@@ -35,6 +35,7 @@ return [
         'btn_order_now' => 'Order Now',
     ],
     'single' => [
+        'title' => 'detail',
         'food_type' => 'Food Type :',
         'add_cart'  => 'Add To Cart',
         'description' => 'Description',
@@ -45,6 +46,14 @@ return [
         'search' => 'Search',
         'recent_product' => 'Recent Product',
         'categories' => 'Categories',
+        "asterisk" => '*',
     ],
-
+    'cart' => [
+        'title' => 'Cart-page',
+        'dollar' => '$',
+        'update_cart' => 'Update Cart',
+        'remove' => 'Remove',
+        'grand_total' => 'Grand Total',
+        'delete_x' => 'X',
+    ]
 ];

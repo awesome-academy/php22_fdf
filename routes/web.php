@@ -38,6 +38,7 @@ Route::get('/redirect/{social}', [
 Route::get('/callback/{social}', [
     'as' => 'callback.social',
     'uses' => 'SocialAuthController@callback',
+]);
 
 Route::get('/product/{slug}', [
     'as' => 'product.single',
@@ -47,6 +48,12 @@ Route::get('/product/{slug}', [
 Route::get('/category/{slug}', [
     'as' => 'category.single',
     'uses' => 'StoreController@singleCategory',
+]);
+
+Route::resource('cart', 'CartController')->only([
+    'index',
+    'update',
+    'destroy',
 ]);
 
 Auth::routes();

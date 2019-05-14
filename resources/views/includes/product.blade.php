@@ -14,7 +14,12 @@
         </div>
         <div class="food__rating">
             <div class="list__food__prize">
-                <span>{{ $product->price }}</span>
+                <span>
+                    @lang('layouts.cart.dollar'){{ $product->newPrice() }}
+                    @if ($product->discount > config('setting.default_value_0'))
+                        @lang('layouts.single.asterisk')
+                    @endif
+                </span>
             </div>
             <ul class="rating">
                 <li><i class="zmdi zmdi-star"></i></li>

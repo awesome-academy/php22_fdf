@@ -63,7 +63,9 @@
                         <div class="shopping__cart">
                             <a class="minicart-trigger" href="#"><i class="zmdi zmdi-shopping-basket"></i></a>
                             <div class="shop__qun">
-                                <span></span>
+                                <span class="totalQty">
+                                     {{ $totalQty }}
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -72,3 +74,42 @@
         </div>
     </div>
 </header>
+
+<div class="cartbox-wrap">
+    <div class="cartbox text-right">
+        <button class="cartbox-close"><i class="zmdi zmdi-close"></i></button>
+        <div class="cartbox__inner text-left">
+            <div class="cartbox__items">
+                @if (Session::has('cart'))
+                    @foreach($product_cart as $product)
+                        <div class="cartbox__item {{ $product['item']['id'] }}" id = "cartbox__item{{ $product['item']['id'] }}">
+                            <div class="cartbox__item__thumb">
+                                <a href="{{ route('product.single', [ 'slug' => $product['item']['slug'] ]) }}">
+                                    <img src="{{asset('storage/uploads/cover_images/'. $product['item']['images'][config('setting.default_value_0')]->url)}}" alt="{{ $product['item']['name'] }}">
+                                </a>
+                            </div>
+                            <div class="cartbox__item__content">
+                                <h5><a href="product-details.html" class="product-name">{{ $product['item']['name'] }}</a></h5>
+                                <p>@lang('layouts.footer.quantity_cart')<span>{{ $product['quantity'] }}</span></p>
+                                <span class="price">@lang('layouts.cart.dollar'){{ $product['price'] }}</span>
+                            </div>
+                            <button class="cartbox__item__remove">
+                                <i class="delete-item fa fa-trash" id="{{ $product['item']['id'] }}"></i>
+                            </button>
+                        </div>
+                    @endforeach
+                @endif
+            </div>
+            <div class="cartbox__total">
+                <ul>
+                    <li><span class="cartbox__total__title">@lang('layouts.footer.subtotal')</span><span class="price">@lang('layouts.cart.dollar'){{ $totalPrice }}</span></li>
+                    <li class="grandtotal">@lang('layouts.footer.total')<span class="price">@lang('layouts.cart.dollar'){{ $totalPrice }}</span></li>
+                </ul>
+            </div>
+            <div class="cartbox__buttons">
+                <a class="food__btn" href=" {{ route('cart.index') }}"><span>@lang('layouts.footer.view_cart')</span></a>
+                <a class="food__btn" href=""><span>@lang('layouts.footer.checkout')</span></a>
+            </div>
+        </div>
+    </div>
+</div>>

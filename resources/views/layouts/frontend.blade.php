@@ -37,6 +37,7 @@
 @include('includes.footer')
 </div>
 {!! Html::script('js/app.js') !!}
+{!! Html::script('js/shop.js') !!}
 {!! Html::script('js/logout.js') !!}
 {!! Html::script('app/js/vendor/jquery-3.2.1.min.js') !!}
 {!! Html::script('app/js/popper.min.js') !!}
