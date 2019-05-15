@@ -38,6 +38,7 @@ Route::get('/redirect/{social}', [
 Route::get('/callback/{social}', [
     'as' => 'callback.social',
     'uses' => 'SocialAuthController@callback',
+]);
 
 Route::get('/product/{slug}', [
     'as' => 'product.single',
@@ -57,6 +58,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function (){
     Route::get('/order/index',[
         'as' => 'admin.order.index',
         'uses' => 'AdminOrderController@index',
+    ]);
+
+    Route::post('/order/change-status/{id}/{status}',[
+        'as' => 'admin.order.changeStatus',
+        'uses' => 'AdminOrderController@changeStatus',
     ]);
 
     Route::get('/suggest',[

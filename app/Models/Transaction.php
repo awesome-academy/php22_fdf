@@ -20,11 +20,13 @@ class Transaction extends Model
     }
 
     public function getStatus(){
-        if($this->status == config('setting.default_value_0')){
+        if ($this->status == config('setting.default_value_0')) {
 
+            return @trans('message.status_pending');
+        } else if ($this->status == config('setting.default_value_1')) {
             return @trans('message.status_done');
         }
 
-        return  @trans('message.status_unpaid');
+        return  @trans('message.status_reject');
     }
 }
