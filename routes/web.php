@@ -65,7 +65,7 @@ Route::resource('cart', 'CartController')->only([
 Auth::routes();
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function (){
-    Route::get('home', 'HomeController@index')->name('home');
+    Route::get('home', 'ChartController@index')->name('home');
 
     Route::get('/order/index',[
         'as' => 'admin.order.index',
