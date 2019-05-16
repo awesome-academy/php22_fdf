@@ -28,6 +28,6 @@ class SuggestController extends Controller
         }
         Session::flash('success', @trans('message.success.suggest'));
 
-        return redirect()->route('admin.suggest');
+        return redirect()->route('admin.category.index');
     }
 }

@@ -72,11 +72,18 @@ return [
         'total_price' => 'Total Price: ',
         'trading_code' => ' Trading Code ',
         'user_order' => 'User\'s Orders',
-        'no_order' => 'No Orders'
+        'no_order' => 'No Orders',
+        'option' => 'Options',
+        'all' => 'All',
+        'done' => 'Done',
+        'pending' => 'Pending',
+        'reject' => 'Reject',
+        'sub_total' => 'Sub Total',
+        'total' => 'Total',
     ],
     'suggest' => [
         'title' => 'Suggests',
         'content' => 'Content',
-        'no_suggest' => 'No Suggest'
+        'no_suggest' => 'No Suggest',
     ],
 ];

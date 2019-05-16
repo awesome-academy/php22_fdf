@@ -7,6 +7,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
     {!! Html::script('js/app.js') !!}
     {!! Html::script('js/logout.js') !!}
+    {!! Html::script('js/admin.js') !!}
     {!! Html::style('css/app.css') !!}
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">

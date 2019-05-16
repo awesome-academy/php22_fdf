@@ -14,9 +14,10 @@ return [
     'delete_success' => 'Delete Success',
     'delete_fail' => 'Delete Fail',
     'status_done' => 'Done',
-    'status_unpaid' => 'Unpaid',
     'status_pending' => 'Pending',
     'status_reject' => 'Reject',
+    'status_change' => 'Change Successfully!',
+    'status_change_fail' => 'Change Status Failed!',
     'info' => [
         'category' => [
             'create_category' => 'You must have some categories before attempting to create to a product',
