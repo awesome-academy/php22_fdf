@@ -50,6 +50,12 @@ Route::get('/category/{slug}', [
     'uses' => 'StoreController@singleCategory',
 ]);
 
+Route::resource('cart', 'CartController')->only([
+    'index',
+    'update',
+    'destroy',
+]);
+
 Auth::routes();
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function (){

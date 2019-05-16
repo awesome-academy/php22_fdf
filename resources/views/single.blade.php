@@ -1,5 +1,5 @@
 @extends('layouts.frontend')
-@section('title','detail')
+@section('title', @trans('layouts.single.title'))
 @section('content')
     <section class="blog__list__view section-padding--lg menudetails-right-sidebar bg--white">
         <div class="container">
@@ -14,10 +14,10 @@
                                 <div class="food__menu__content">
                                     <h2>{{ $product->name }}</h2>
                                     <ul class="food__dtl__prize d-flex">
-                                        <li class="old__prize">{{ $product->price }} VNĐ</li>
                                         @if($product->discount > config('setting.default_value_0'))
-                                            <li>{{ $product->newPrice() }} VNĐ</li>
+                                            <li class="old__prize">@lang('layouts.cart.dollar'){{ $product->price }} </li>
                                         @endif
+                                        <li>@lang('layouts.cart.dollar'){{ $product->newPrice() }} </li>
                                     </ul>
                                     <ul class="rating">
                                         <li><i class="fa fa-star"></i></li>
@@ -30,16 +30,14 @@
                                     <div class="product-action-wrap">
                                         <div class="prodict-statas"><span>@lang('layouts.single.food_type') {{ $product->category->name }}</span></div>
                                         <div class="product-quantity">
-                                            {!! Form::open(['method' => 'POST', 'id' => 'myform']) !!}
                                                 <div class="product-quantity">
                                                     <div class="cart-plus-minus">
-                                                        {!! Form::text('qtybutton', '2', ['class' => 'cart-plus-minus-box']) !!}
+                                                        <input type="text" class="cart-plus-minus-box quantity" name="qtybutton" value="2">
                                                         <div class="add__to__cart__btn">
-                                                            <a class="food__btn" href="">@lang('layouts.single.add_cart')</a>
+                                                            <a class="food__btn add-btn" id="{{ $product->id }}" href="">@lang('layouts.single.add_cart')</a>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            {!! Form::close() !!}
                                         </div>
                                     </div>
                                 </div>
@@ -93,9 +91,7 @@
                             <div class="col-lg-4 col-md-6 col-sm-12">
                                 <div class="beef_product">
                                     <div class="beef__thumb">
-                                        <a href="{{ route('product.single', [ 'slug' => $popular_product->slug ]) }}">{{ $popular_product->name }}>
-                                            <img src="{{asset('storage/uploads/cover_images/'. $popular_product->images[config('setting.default_value_0')]->url)}}" alt="{{ $popular_product->name }}">
-                                        </a>
+                                        <img src="{{asset('storage/uploads/cover_images/'. $popular_product->images[config('setting.default_value_0')]->url)}}" alt="{{ $popular_product->name }}">
                                     </div>
                                     <div class="beef__hover__info">
                                         <div class="beef__hover__inner">
@@ -106,14 +102,13 @@
                                     <div class="beef__details">
                                         <h4><a href="{{ route('product.single', [ 'slug' => $popular_product->slug ]) }}">{{ $popular_product->name }}</a></h4>
                                         <ul class="beef__prize">
-                                            <li class="old__prize">{{ $popular_product->price }} VNĐ</li>
-                                            @if($popular_product->newPrice() > config('setting.default_value_0'))
-                                                <li>{{ $popular_product->newPrice() }} VNĐ</li>
+                                            <li class="old__prize">@lang('layouts.cart.dollar'){{ $popular_product->price }}</li>
+                                            @if($popular_product->discount > config('setting.default_value_0'))
+                                                <li>@lang('layouts.cart.dollar'){{ $popular_product->newPrice() }}</li>
                                             @endif
                                         </ul>
-                                        <p>{{ $popular_product->description }}</p>
                                         <div class="beef__cart__btn">
-                                            <a href="{{ route('cart') }}">@lang('layouts.single.add_cart')</a>
+                                            <a href="{{ route('cart.index') }}" class="add-btn" id="{{ $popular_product->id }}">@lang('layouts.single.add_cart')</a>
                                         </div>
                                     </div>
                                 </div>
