@@ -80,6 +80,7 @@ return [
         'reject' => 'Reject',
         'sub_total' => 'Sub Total',
         'total' => 'Total',
+        'order_summary' => 'Order Summary',
     ],
     'suggest' => [
         'title' => 'Suggests',

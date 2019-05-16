@@ -41,10 +41,17 @@ return [
             'update_user' => 'You successfully updated User',
             'delete_user' => 'You successfully deleted User',
         ],
+        'checkout' => [
+            'nothing_cart' => 'Nothing in your cart!',
+            'outof_product' => 'Out of this product !!  ',
+            'just_have' => ' just have ',
+            'error' => 'Error Checkout',
+            'success' => 'Transaction successfully!'
+        ],
         'suggest' => 'Successfully',
     ],
     'fail' => [
-        'edit_product' => 'No Foung ID product',
+        'edit_product' => 'No Found ID product',
         'login' => 'Login failed. Check the user email and password and try again',
         'suggest' => 'Change Fail'
     ],

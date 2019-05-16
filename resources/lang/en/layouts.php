@@ -55,5 +55,17 @@ return [
         'remove' => 'Remove',
         'grand_total' => 'Grand Total',
         'delete_x' => 'X',
-    ]
+    ],
+    'checkout' => [
+        'check_method' => '1. Check Method',
+        'your_order' => 'Your Order',
+        'cart_subtotal' => 'Cart subtotal',
+        'order_total' => 'Cart subtotal',
+        'place_order' => 'Place Order',
+        'title' => 'Checkout',
+        'change' => 'Change'
+    ],
+    'order' => [
+        'title' => 'Order Summary',
+    ],
 ];

@@ -44,7 +44,7 @@
                                 <li></li>
                                 <li></li>
                                 <li><input type="submit" href="" value="{{@trans('layouts.cart.update_cart')}}"/></li>
-                                <li><a href="">@lang('layouts.footer.checkout')</a></li>
+                                <li><a href="{{route('checkout.index')}}">@lang('layouts.footer.checkout')</a></li>
                             </ul>
                         </div>
                     {!! Form::close() !!}

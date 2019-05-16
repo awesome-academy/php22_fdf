@@ -20,6 +20,7 @@
 <body>
 <div class="wrapper" id="wrapper">
 @include('includes.header')
+@include('admin.include.toast')
     <div class="ht__bradcaump__area bg-image--18">
         <div class="ht__bradcaump__wrap d-flex align-items-center">
             <div class="container">
@@ -37,6 +38,7 @@
 @include('includes.footer')
 </div>
 {!! Html::script('js/app.js') !!}
+{!! Html::script('js/admin.js') !!}
 {!! Html::script('js/shop.js') !!}
 {!! Html::script('js/logout.js') !!}
 {!! Html::script('app/js/vendor/jquery-3.2.1.min.js') !!}
