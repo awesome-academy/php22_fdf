@@ -20,24 +20,22 @@
                                         <li>@lang('layouts.cart.dollar'){{ $product->newPrice() }} </li>
                                     </ul>
                                     <ul class="rating">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
+                                        @for ($i = config('setting.default_start_begin'); $i < config('setting.default_start_end'); $i++ )
+                                            @if ($i <= $product->rating)
+                                                <li><i class="fa fa-star rate" ></i></li>
+                                            @else
+                                                <li><i class="fa fa-star"  ></i></li>
+                                            @endif
+                                        @endfor
                                     </ul>
                                     <p>{{ $product->description }}</p>
                                     <div class="product-action-wrap">
                                         <div class="prodict-statas"><span>@lang('layouts.single.food_type') {{ $product->category->name }}</span></div>
                                         <div class="product-quantity">
-                                                <div class="product-quantity">
-                                                    <div class="cart-plus-minus">
-                                                        <input type="text" class="cart-plus-minus-box quantity" name="qtybutton" value="2">
-                                                        <div class="add__to__cart__btn">
-                                                            <a class="food__btn add-btn" id="{{ $product->id }}" href="">@lang('layouts.single.add_cart')</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                            <div class="add__to__cart__btn">
+                                                <input type="number" class="input_quantity quantity " name="qtybutton" value="2" max="{{$product->quantity}}">
+                                                <button class="food__btn add-btn" id="{{ $product->id }}">@lang('layouts.single.add_cart')</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -55,25 +53,49 @@
                                 </div>
                                 <div class="single__dec__content fade" id="nav-breakfast" role="tabpanel">
                                     <div class="review__wrapper">
-                                        <div class="single__review d-flex">
-                                            <div class="review__thumb">
-                                                <img src="images/testimonial/rev/1.jpg" alt="review images">
-                                            </div>
-                                            <div class="review__details">
-                                                <h3></h3>
-                                                <div class="rev__meta d-flex justify-content-between">
-                                                    <span></span>
-                                                    <ul class="rating">
-                                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                    </ul>
+                                        @foreach($feedbacks as $feedback)
+                                            <div class="single__review d-flex">
+                                                <div class="review__details">
+                                                    <h3>{{$feedback->user->name}}</h3>
+                                                    <div class="rev__meta d-flex justify-content-between">
+                                                        <span>{{ $feedback->created_at->toFormattedDateString()}}</span>
+                                                        <ul class="rating">
+                                                            @for ($i = config('setting.default_start_begin'); $i < config('setting.default_start_end'); $i++ )
+                                                                @if ($i <= $feedback->rating)
+                                                                    <li><i class="fa fa-star rate" ></i></li>
+                                                                @else
+                                                                    <li><i class="fa fa-star"  ></i></li>
+                                                                @endif
+                                                            @endfor
+                                                        </ul>
+                                                    </div>
+                                                    <p>{{$feedback->content}}</p>
                                                 </div>
-                                                <p></p>
                                             </div>
-                                        </div>
+                                        @endforeach
+                                        @if (Auth::check())
+                                            <div class="single__review d-flex single__review_user">
+                                                <div class="review__details">
+                                                    <div class="rev__meta d-flex justify-content-between">
+                                                        <ul class="rating rating-review">
+                                                            <li><i class="fa fa-star"  data-rating="1"></i></li>
+                                                            <li><i class="fa fa-star"  data-rating="2"></i></li>
+                                                            <li><i class="fa fa-star"  data-rating="3"></i></li>
+                                                            <li><i class="fa fa-star"  data-rating="4"></i></li>
+                                                            <li><i class="fa fa-star"  data-rating="5"></i></li>
+                                                            <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                                                        </ul>
+                                                    </div>
+
+                                                    <div>
+                                                        <input class="form-control form-control-lg review-text" type="text" >
+                                                        <br>
+                                                        <span class="btn-success btn review" id="{{$product->id}}">@lang('layouts.single.review')</span>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

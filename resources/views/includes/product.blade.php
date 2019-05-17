@@ -22,11 +22,13 @@
                 </span>
             </div>
             <ul class="rating">
-                <li><i class="zmdi zmdi-star"></i></li>
-                <li><i class="zmdi zmdi-star"></i></li>
-                <li><i class="zmdi zmdi-star"></i></li>
-                <li><i class="zmdi zmdi-star"></i></li>
-                <li class="rating__opasity"><i class="zmdi zmdi-star"></i></li>
+                @for ($i = config('setting.default_start_begin'); $i < config('setting.default_start_end'); $i++ )
+                    @if ($i <= $product->rating)
+                        <li><i class="fa fa-star rate" ></i></li>
+                    @else
+                        <li><i class="fa fa-star"  ></i></li>
+                    @endif
+                @endfor
             </ul>
         </div>
     </div>

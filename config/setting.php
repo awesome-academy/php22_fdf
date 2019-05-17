@@ -5,4 +5,6 @@ return [
     'default_value_star' => 3,
     'default_value_10' => 10,
     'default_value_page' => 15,
+    'default_star_begin' => 1,
+    'default_star_end' => 6,
 ];
