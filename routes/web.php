@@ -50,6 +50,12 @@ Route::get('/category/{slug}', [
     'uses' => 'StoreController@singleCategory',
 ]);
 
+Route::resource('checkout', 'CheckoutController')->only([
+    'index',
+    'store',
+    'show',
+]);
+
 Route::resource('cart', 'CartController')->only([
     'index',
     'update',

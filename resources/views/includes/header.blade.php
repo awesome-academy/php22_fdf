@@ -50,6 +50,9 @@
                                                     <li>
                                                         <a href="">@lang('header.users.title_profile')</a>
                                                     </li>
+                                                        <li>
+                                                            <a href="{{route('checkout.show', [ 'id' => auth()->id()])}}">@lang('header.order.order_summary')</a>
+                                                        </li>
                                                     <li id="logout-span">
                                                         <a>@lang('header.logout')</a>
                                                     </li>
@@ -108,8 +111,8 @@
             </div>
             <div class="cartbox__buttons">
                 <a class="food__btn" href=" {{ route('cart.index') }}"><span>@lang('layouts.footer.view_cart')</span></a>
-                <a class="food__btn" href=""><span>@lang('layouts.footer.checkout')</span></a>
+                <a class="food__btn" href=" {{ route('checkout.index')}}"><span>@lang('layouts.footer.checkout')</span></a>
             </div>
         </div>
     </div>
-</div>>
+</div>
