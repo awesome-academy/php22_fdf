@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Transaction;
-use Illuminate\Http\Request;
+use App\Notifications\NewStatusOrder;
+use Notification;
 
 class AdminOrderController extends Controller
 {
@@ -19,6 +20,9 @@ class AdminOrderController extends Controller
             $transaction = Transaction::findOrFail($id);
             $transaction->status = $status;
             $transaction->save();
+            if( Notification::send($transaction->user, new NewStatusOrder($transaction))){
+                return back();
+            }
         } catch (\Exception $e) {
 
             return response()->json([

@@ -7,10 +7,12 @@
     <title> {{ config('setting.title') }}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    @if(auth()->check())
+        <meta name="id_user" content="{{ auth()->id() }}">
+        <meta name="count" content="{{auth()->user()->unreadnotifications()->count()}}">
+    @endif
     <link rel="shortcut icon" href="{{ asset('app/images/favicon.ico') }}">
     <link rel="apple-touch-icon" href="{{ asset('app/images/icon.png') }}">
-
     {!! Html::style('css/app.css') !!}
     {!! Html::style('app/css/bootstrap.min.css') !!}
     {!! Html::style('app/css/plugins.css') !!}
@@ -38,6 +40,7 @@
 @include('includes.footer')
 </div>
 {!! Html::script('js/app.js') !!}
+{!! Html::script('js/notification.js') !!}
 {!! Html::script('js/admin.js') !!}
 {!! Html::script('js/shop.js') !!}
 {!! Html::script('js/logout.js') !!}
