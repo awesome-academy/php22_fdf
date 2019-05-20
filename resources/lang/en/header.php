@@ -81,10 +81,17 @@ return [
         'sub_total' => 'Sub Total',
         'total' => 'Total',
         'order_summary' => 'Order Summary',
+        'transactions' => 'transactions',
     ],
     'suggest' => [
         'title' => 'Suggests',
         'content' => 'Content',
         'no_suggest' => 'No Suggest',
+    ],
+    'chart' => [
+        'title_month' => 'Monthly trading chart',
+        'title_year' => 'Annual trading chart',
+        'label' => 'Total Transaction',
+
     ],
 ];
