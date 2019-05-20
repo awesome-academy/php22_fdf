@@ -62,6 +62,12 @@ Route::resource('cart', 'CartController')->only([
     'destroy',
 ]);
 
+Route::group(['prefix' => 'notifications'], function () {
+    Route::get('marks', 'NotificationController@markAll')->name('notifications.seen');
+    Route::delete('remove', 'NotificationController@removeAll')->name('notifications.remove');
+    Route::get('mark/{id}', 'NotificationController@markSingle')->name('notification.seen');
+});
+
 Auth::routes();
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function (){

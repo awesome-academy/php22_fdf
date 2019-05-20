@@ -40,7 +40,38 @@
                                 <div class="main__menu__wrap">
                                     <nav class="main__menu__nav d-none d-lg-block">
                                         <ul class="mainmenu">
-                                            <li class="drop"><a id="user_name">{{ Auth::user()->name }}</a>
+                                            <li class="nav-item dropdown drop">
+                                                <a id="notifications" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                                    <i class="fa fa-globe"></i><span class="badge-danger badge" id="count-notification">{{auth()->user()->unreadnotifications()->count()}}</span>
+                                                    <span class="caret"></span>
+                                                </a>
+                                                <ul class="dropdown-menu dropdown__menu" aria-labelledby="navbarDropdown">
+                                                    @foreach(auth()->user()->notifications as $notification)
+                                                        @if($notification->type == 'App\\Notifications\\NewOrder')
+                                                            <li class="dropdown-item  @if($notification->unread()) unseen @endif" id="notificationsMenu">
+                                                                <a class="nav-link seenSingle" id = "{{ $notification->id }}" href=" {{route('admin.user.show', ['id' => $notification->data['user_id']])}}">
+                                                                    @lang('header.notification.neworder') <strong>{{ $notification->data['user_name'] }}</strong><p class="small float-right">{{ $notification->created_at->diffForHumans() }}</p>
+                                                                </a>
+                                                            </li>
+                                                        @else
+                                                            <li class="dropdown-item  @if($notification->unread()) unseen @endif" id="notificationsMenu">
+                                                                <a class="nav-link seenSingle" id = "{{ $notification->id }}" href="{{route('checkout.show', [ 'id' => auth()->id()])}}">
+                                                                    @lang('header.notification.newstatusorder') <strong>{{ $notification->data['id_transaction'] }}</strong> @lang('header.notification.is') <strong>{{ $notification->data['status_transaction'] }}</strong><br><p class="small float-right">{{ $notification->created_at->diffForHumans() }}</p>
+                                                                </a>
+                                                            </li>
+                                                        @endif
+                                                    @endforeach
+                                                    @if (auth()->user()->unreadnotifications()->count() > config('setting.default_value_0'))
+                                                        <li class="dropdown-item " id="notificationsMenu">
+                                                            <a class="float-right seenAll" href="">@lang('header.notification.seeall')</a>
+                                                        </li>
+                                                    @endif
+                                                </ul>
+                                            </li>
+                                            <li class="drop">
+                                                <a id="user_name" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                                    {{auth()->user()->name}}
+                                                </a>
                                                 <ul class="dropdown__menu">
                                                     @if (Auth::user()->isAdmin())
                                                         <li>
@@ -50,9 +81,9 @@
                                                     <li>
                                                         <a href="">@lang('header.users.title_profile')</a>
                                                     </li>
-                                                        <li>
-                                                            <a href="{{route('checkout.show', [ 'id' => auth()->id()])}}">@lang('header.order.order_summary')</a>
-                                                        </li>
+                                                    <li>
+                                                        <a href="{{route('checkout.show', [ 'id' => auth()->id()])}}">@lang('header.order.order_summary')</a>
+                                                    </li>
                                                     <li id="logout-span">
                                                         <a>@lang('header.logout')</a>
                                                     </li>

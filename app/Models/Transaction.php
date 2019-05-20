@@ -19,6 +19,11 @@ class Transaction extends Model
         return $this->hasMany(Order::class);
     }
 
+    public function user(){
+
+        return $this->belongsTo(User::class);
+    }
+
     public function getStatus(){
         if ($this->status == config('setting.default_value_0')) {
 
