@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Transaction;
 use App\Models\Cart;
-use Illuminate\Support\Facades\Auth;
+use App\Jobs\SendNotiOrderMail;
 use DB;
 use Session;
 
@@ -79,6 +80,10 @@ class CheckoutController extends Controller
             }
             $request->session()->forget('cart');
             DB::commit();
+            $admins = User::where('is_admin', true)->get();
+            foreach ($admins as $admin){
+                dispatch(new SendNotiOrderMail($transaction, $admin));
+            }
         } catch (Exception $e) {
             DB::rollBack();
             Session::flash('info', @trans('message.success.checkout.error'));

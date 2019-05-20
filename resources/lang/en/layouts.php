@@ -68,4 +68,13 @@ return [
     'order' => [
         'title' => 'Order Summary',
     ],
+    'mail' => [
+        'order_product' => '# Order Product',
+        'order_mess' => 'You have been a order product',
+        'message' => 'Message',
+        'view_detail' => ' View Order Detail',
+        'qty' => 'QTY',
+        'regards' => 'Regards,',
+        'system' => 'Store System,',
+    ],
 ];
