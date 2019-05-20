@@ -4,6 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @if(auth()->check())
+        <meta name="id_user" content="{{ auth()->id() }}">
+        <meta name="count" content="{{auth()->user()->unreadnotifications()->count()}}">
+    @endif
     <title>{{ config('app.name', 'Laravel') }}</title>
     {!! Html::script('js/app.js') !!}
     {!! Html::script('js/logout.js') !!}
@@ -45,10 +49,40 @@
                         @endif
                     @else
                         <li class="nav-item dropdown">
+                            <a id="notifications" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <i class="fa fa-globe"></i>  @lang('header.notification')
+                                <span class="badge-danger badge" id="count-notification">
+                                    {{ auth()->user()->unreadnotifications()->count() }}
+                                </span>
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @foreach(auth()->user()->notifications as $notification)
+                                    @if($notification->type == 'App\\Notifications\\NewOrder')
+                                        <li class="dropdown-item  @if($notification->unread()) unseen @endif" id="notificationsMenu">
+                                            <a class="nav-link seenSingle" id = "{{ $notification->id }}" href=" {{route('admin.user.show', ['id' => $notification->data['user_id']])}}">
+                                                @lang('header.notification.neworder')<strong>{{ $notification->data['user_name'] }}</strong><p class="small float-right">{{ $notification->created_at->diffForHumans() }}</p>
+                                            </a>
+                                        </li>
+                                    @else
+                                        <li class="dropdown-item  @if($notification->unread()) unseen @endif" id="notificationsMenu">
+                                            <a class="nav-link seenSingle" id = "{{ $notification->id }}"  href=" {{route('checkout.show', ['id' => auth()->id()])}}">
+                                                @lang('header.notification.newstatusorder') <strong>{{ $notification->data['id_transaction'] }}</strong>@lang('header.notification.is')<strong>{{ $notification->data['status_transaction'] }}</strong><br><p class="small float-right">{{ $notification->created_at->diffForHumans() }}</p>
+                                            </a>
+                                        </li>
+                                    @endif
+                                @endforeach
+                                @if (auth()->user()->unreadnotifications()->count() > config('setting.default_value_0'))
+                                    <li class="dropdown-item " id="notificationsMenu">
+                                        <a class="float-right seenAll" href="">@lang('header.notification.seeall')</a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
-
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <span class="dropdown-item" id="logout-span">
                                         @lang('header.logout')

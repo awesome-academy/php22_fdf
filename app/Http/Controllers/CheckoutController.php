@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Notifications\NewOrder;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Order;
@@ -12,6 +13,7 @@ use App\Models\Cart;
 use App\Jobs\SendNotiOrderMail;
 use DB;
 use Session;
+use Notification;
 
 class CheckoutController extends Controller
 {
@@ -82,6 +84,9 @@ class CheckoutController extends Controller
             DB::commit();
             $admins = User::where('is_admin', true)->get();
             foreach ($admins as $admin){
+                if( Notification::send($admin, new NewOrder($transaction))){
+                    return back();
+                }
                 dispatch(new SendNotiOrderMail($transaction, $admin));
             }
         } catch (Exception $e) {
