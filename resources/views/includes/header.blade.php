@@ -53,11 +53,15 @@
                                                                     @lang('header.notification.neworder') <strong>{{ $notification->data['user_name'] }}</strong><p class="small float-right">{{ $notification->created_at->diffForHumans() }}</p>
                                                                 </a>
                                                             </li>
-                                                        @else
+                                                        @elseif($notification->type == 'App\\Notifications\\NewStatusOrder')
                                                             <li class="dropdown-item  @if($notification->unread()) unseen @endif" id="notificationsMenu">
                                                                 <a class="nav-link seenSingle" id = "{{ $notification->id }}" href="{{route('checkout.show', [ 'id' => auth()->id()])}}">
                                                                     @lang('header.notification.newstatusorder') <strong>{{ $notification->data['id_transaction'] }}</strong> @lang('header.notification.is') <strong>{{ $notification->data['status_transaction'] }}</strong><br><p class="small float-right">{{ $notification->created_at->diffForHumans() }}</p>
                                                                 </a>
+                                                            </li>
+                                                        @else
+                                                            <li class="dropdown-item  @if($notification->unread()) unseen @endif" id="notificationsMenu">
+                                                                <a class="nav-link seenSingle" id = "{{ $notification->id }}"  href=" {{route('order.summary')}}"> @lang('header.notification.processing')<p class="small float-right">{{ $notification->created_at->diffForHumans() }}</p></a>
                                                             </li>
                                                         @endif
                                                     @endforeach
