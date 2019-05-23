@@ -2,32 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Suggest;
-use Illuminate\Http\Request;
+use App\Repositories\Eloquents\SuggestEloquentRepository;
 use Session;
 
 class SuggestController extends Controller
 {
+    private $suggestRepository;
+
+    public function __construct(SuggestEloquentRepository $suggestRepository)
+    {
+        $this->suggestRepository = $suggestRepository;
+    }
     public function index(){
-        return view('admin.suggest.index')->with('suggests', Suggest::paginate(config('setting.default_value_page')));
+
+        return view('admin.suggest.index')->with('suggests', $this->suggestRepository->getAllWithPaginate());
     }
 
     public function changeStatus($id, $status){
-        try {
-            $suggest = Suggest::findOrFail($id);
-            if ( $status == config('setting.default_value_0')){
-                $suggest->status = config('setting.default_value_1');
-            }else {
-                $suggest->status = config('setting.default_value_0');
-            }
-            $suggest->save();
-        } catch (\Exception $e){
-            Session::flash('fail', @trans('message.fail.suggest'));
+      if ( $this->suggestRepository->changeStatus($id, $status)){
+          Session::flash('success', @trans('message.success.suggest'));
 
-            return redirect()->route('admin.suggest');
+          return redirect()->route('admin.category.index');
         }
-        Session::flash('success', @trans('message.success.suggest'));
+      Session::flash('fail', @trans('message.fail.suggest'));
 
-        return redirect()->route('admin.category.index');
+      return redirect()->route('admin.suggest');
     }
 }

@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Http\Requests\NewUserRequest;
 use App\Http\Requests\ProfileUserRequest;
-use Illuminate\Support\Facades\Auth;
 use Session;
 
 class UsersController extends Controller
 {
+    private $userRepository;
+
+    public function __construct(UserRepositoryInterface $userRepository)
+    {
+       $this->userRepository = $userRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +23,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(config('setting.default_value_page'));
+        $users = $this->userRepository->getAllWithPaginate();
 
         return view('admin.users.index', compact('users'));
     }
@@ -41,14 +46,16 @@ class UsersController extends Controller
      */
     public function store(NewUserRequest $request)
     {
-        $user = User::create([
+        $attribute = [
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
             'address' => '',
             'phone' => '',
             'is_admin' => true,
-        ]);
+        ];
+        $users = $this->userRepository->create($attribute);
+
         Session::flash('success', @trans('message.success.user.create_user'));
 
         return redirect()->route('admin.user.index');
@@ -63,7 +70,7 @@ class UsersController extends Controller
     public function show($id)
     {
         try {
-            $user = User::findOrFail($id);
+            $user = $this->userRepository->getById($id);
             $transactions = $user->transactions;
         } catch (\Exception $e) {
 
@@ -83,7 +90,7 @@ class UsersController extends Controller
     public function edit($id)
     {
         try {
-            $user = User::findOrFail($id);
+            $user = $this->userRepository->getById($id);
         } catch (\Exception $e) {
 
             return redirect()->route('admin.user.index');
@@ -101,16 +108,9 @@ class UsersController extends Controller
      */
     public function update(ProfileUserRequest $request)
     {
-        $user = Auth::user();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->phone = $request->phone;
-        $user->address = $request->address;
-        if($request->has('newpassword')){
-            $user->password = bcrypt($request->newpassword);
+        if( $user = $this->userRepository->updateProfile($request)){
+            Session::flash('success', @trans('message.success.user.update_user'));
         }
-        $user->save();
-        Session::flash('success', @trans('message.success.user.update_user'));
 
         return redirect()->back();
     }
@@ -123,15 +123,12 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        try {
-            $user = User::findOrFail($id);
-            $user->delete();
-        } catch (\Exception $e) {
-            
-            return redirect()->route('users');
-        }
-        Session::flash('success', @trans('message.success.user.delete_user'));
+        if( $user = $this->userRepository->delete($id)){
+            Session::flash('success', @trans('message.success.user.delete_user'));
 
-        return redirect()->route('admin.user.index');
+            return redirect()->route('admin.user.index');
+        }
+
+        return redirect()->route('users');
     }
 }

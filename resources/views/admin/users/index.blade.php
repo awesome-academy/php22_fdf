@@ -37,7 +37,9 @@
                     </td>
                     <td>
                         @if (Auth::id() !== $user->id && !$user->isAdmin())
-                            <a class="btn btn-danger btn-group-sm " href="{{ route('admin.user.destroy', ['id' => $user->id ]) }}" >@lang('header.delete')</a>
+                            {{ Form::open(['id' => 'delete', 'route' => ['admin.user.destroy', $user->id], 'method' => 'delete']) }}
+                                {{ Form::submit(trans('header.delete'), ['data-id' => $user->id, 'class' => 'btn btn-xs btn-danger']) }}
+                            {{ Form::close() }}
                         @endif
                     </td>
                 </tr>
