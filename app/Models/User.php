@@ -54,19 +54,9 @@ class User extends Authenticatable
         return $this->hasMany(Suggest::class);
     }
 
-    public function rate(){
-
-        return $this->hasMany(Rate::class);
-    }
-
-    public function order(){
-
-        return $this->hasMany(Order::class);
-    }
-
     public function transactions(){
 
-        return $this->hasMany(Transaction::class);
+        return $this->hasMany(Transaction::class, 'id');
     }
 
     public function isAdmin()

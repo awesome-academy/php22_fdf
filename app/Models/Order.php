@@ -28,17 +28,4 @@ class Order extends Model
 
         return $this->belongsTo(Transaction::class);
     }
-
-    public function getStatus(){
-        if($this->status == config('setting.default_value_0')){
-
-            return @trans('message.status_pending');
-        }elseif ($this->status == config('setting.default_value_1')){
-
-            return @trans('message.status_done');
-        }
-
-        return @trans('message.status_reject');
-    }
-
 }
