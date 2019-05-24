@@ -71,7 +71,7 @@
                                         </li>
                                     @else
                                         <li class="dropdown-item  @if($notification->unread()) unseen @endif" id="notificationsMenu">
-                                            <a class="nav-link seenSingle" id = "{{ $notification->id }}"  href=" {{route('order.summary')}}"> @lang('header.notification.processing')<p class="small float-right">{{ $notification->created_at->diffForHumans() }}</p></a>
+                                            <a class="nav-link seenSingle" id = "{{ $notification->id }}" href="{{route('checkout.show', [ 'id' => auth()->id()])}}"> @lang('header.notification.processing')<p class="small float-right">{{ $notification->created_at->diffForHumans() }}</p></a>
                                         </li>
                                     @endif
                                 @endforeach
