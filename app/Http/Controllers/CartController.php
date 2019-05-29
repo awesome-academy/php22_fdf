@@ -5,19 +5,30 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Product;
+use App\Repositories\Contracts\CategoryRepositoryInterface;
+use App\Repositories\Contracts\ProductRepositoryInterface;
 use Illuminate\Http\Request;
 use Session;
 
 class CartController extends Controller
 {
+    private $categoryRepository;
+    private $productRepository;
+
+    public function __construct(CategoryRepositoryInterface $categoryRepository, ProductRepositoryInterface $productRepository)
+    {
+        $this->categoryRepository = $categoryRepository;
+        $this->productRepository = $productRepository;
+    }
+
     public function index(){
 
-        return view('cart')->with('categories', Category::all());
+        return view('cart')->with('categories', $this->categoryRepository->getAll());
     }
 
     public function update($id, Request $request){
         try {
-            $product = Product::findOrFail($id);
+            $product =  $this->productRepository->getById($id);
             $quantity = $request->input('quantity');
             $oldCart = Session::has('cart') ? Session::get('cart') : null;
             $cart = new Cart($oldCart);

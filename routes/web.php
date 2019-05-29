@@ -50,6 +50,11 @@ Route::get('/category/{slug}', [
     'uses' => 'StoreController@singleCategory',
 ]);
 
+Route::post('/feedback/{id}/{point}', [
+    'as' => 'feedback',
+    'uses' => 'StoreController@feedback',
+]);
+
 Route::resource('checkout', 'CheckoutController')->only([
     'index',
     'store',
