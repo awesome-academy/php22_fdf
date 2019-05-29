@@ -19,6 +19,12 @@
             "orderneed" : "order need processing",
             "error_ajax" : " Can't do because: ",
             "no_noti" : " No notifications ",
-        }
+        },
+        "en.cart":{
+            "out_of":"Out of product !",
+            "dollar":"$",
+            "error":"Error",
+            "select_product":"Please select the number of products",
+        },
     });
 })();

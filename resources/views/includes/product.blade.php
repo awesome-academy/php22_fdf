@@ -9,7 +9,11 @@
             <h2><a href="{{ route('product.single', [ 'slug' => $product->slug ]) }}">{{ $product->name }}</a></h2>
             <p>{{ $product->description }}</p>
             <div class="list__btn">
-                <a class="food__btn grey--btn theme--hover" href="menu-details.html">@lang('layouts.index.btn_order_now')</a>
+                @if ($product->quantity !=  config('setting.default_value_0') )
+                    <a class="food__btn grey--btn theme--hover" href="{{ route('product.single', [ 'slug' => $product->slug ]) }}">@lang('layouts.index.btn_order_now')</a>
+                @else
+                    <a class="food__btn grey--btn theme--hover" >@lang('layouts.sold_out')</a>
+                @endif
             </div>
         </div>
         <div class="food__rating">

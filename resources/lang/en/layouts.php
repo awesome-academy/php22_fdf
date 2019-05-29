@@ -26,6 +26,7 @@ return [
         'checkout' => 'Checkout',
         'sign_up' => 'Sign Up',
         'go' => 'Go',
+        'sold_out' => 'Sold out !!!',
     ],
     'header' => [
       'title_contact' => 'contact',

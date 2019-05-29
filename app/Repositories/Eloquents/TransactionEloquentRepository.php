@@ -3,6 +3,7 @@
 namespace App\Repositories\Eloquents;
 
 use App\Jobs\SendNotiOrderMail;
+use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Transaction;
@@ -96,6 +97,15 @@ class TransactionEloquentRepository extends EloquentRepository implements Transa
                     ]);
                 } else {
                     Session::flash('info', @trans('message.success.checkout.outof_product') . $product->name . @trans('message.success.checkout.just_have') . $product->quantity);
+                    if ($product->quantity > config('setting.default_value_0') ){
+                        $oldCart->items[$key]['quantity'] = $product->quantity;
+                        $oldCart->items[$key]['price'] = $product->price * $product->quantity;
+                        $cart = new Cart($oldCart);
+                        $cart->updateProductInCart($oldCart, $request);
+
+                    } else {
+                        $oldCart->removeItem($key);
+                    }
 
                     return 0;
                 }

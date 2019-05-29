@@ -20,7 +20,7 @@
                                         <li>@lang('layouts.cart.dollar'){{ $product->newPrice() }} </li>
                                     </ul>
                                     <ul class="rating">
-                                        @for ($i = config('setting.default_start_begin'); $i < config('setting.default_start_end'); $i++ )
+                                        @for ($i = config('setting.default_star_begin'); $i < config('setting.default_star_end'); $i++ )
                                             @if ($i <= $product->rating)
                                                 <li><i class="fa fa-star rate" ></i></li>
                                             @else
@@ -33,8 +33,13 @@
                                         <div class="prodict-statas"><span>@lang('layouts.single.food_type') {{ $product->category->name }}</span></div>
                                         <div class="product-quantity">
                                             <div class="add__to__cart__btn">
-                                                <input type="number" class="input_quantity quantity " name="qtybutton" value="2" max="{{$product->quantity}}">
-                                                <button class="food__btn add-btn" id="{{ $product->id }}">@lang('layouts.single.add_cart')</button>
+                                                @if ($product->quantity != 0 )
+                                                    <label>Total : {{$product->quantity}}</label>
+                                                    <input id = "{{ $product->id }}" type="number" class="input_quantity quantity " name="qtybutton" value="1" min="0" max="{{$product->quantity}}">
+                                                    <button class="food__btn add-btn " id="{{ $product->id }}">@lang('layouts.single.add_cart')</button>
+                                                @else
+                                                    <button class="food__btn" >@lang('layouts.sold_out')</button>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -60,7 +65,7 @@
                                                     <div class="rev__meta d-flex justify-content-between">
                                                         <span>{{ $feedback->created_at->toFormattedDateString()}}</span>
                                                         <ul class="rating">
-                                                            @for ($i = config('setting.default_start_begin'); $i < config('setting.default_start_end'); $i++ )
+                                                            @for ($i = config('setting.default_star_begin'); $i < config('setting.default_star_end'); $i++ )
                                                                 @if ($i <= $feedback->rating)
                                                                     <li><i class="fa fa-star rate" ></i></li>
                                                                 @else
@@ -124,10 +129,10 @@
                                     <div class="beef__details">
                                         <h4><a href="{{ route('product.single', [ 'slug' => $popular_product->slug ]) }}">{{ $popular_product->name }}</a></h4>
                                         <ul class="beef__prize">
-                                            <li class="old__prize">@lang('layouts.cart.dollar'){{ $popular_product->price }}</li>
                                             @if($popular_product->discount > config('setting.default_value_0'))
-                                                <li>@lang('layouts.cart.dollar'){{ $popular_product->newPrice() }}</li>
+                                                <li class="old__prize">@lang('layouts.cart.dollar'){{ $popular_product->price }}</li>
                                             @endif
+                                            <li>@lang('layouts.cart.dollar'){{ $popular_product->newPrice() }}</li>
                                         </ul>
                                         <div class="beef__cart__btn">
                                             <a href="{{ route('cart.index') }}" class="add-btn" id="{{ $popular_product->id }}">@lang('layouts.single.add_cart')</a>
@@ -161,7 +166,7 @@
                                             <h4><a href="{{ route('product.single', [ 'slug' => $product->slug ]) }}">{{ $product->name }}</a></h4>
                                         </div>
                                     </div>
-                                 @endforeach
+                                @endforeach
                             </div>
                         </div>
                         <div class="food__category__area mt--60">
