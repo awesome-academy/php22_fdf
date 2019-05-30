@@ -18,62 +18,125 @@ $(document).on('click', '.delete-item', function(e){
             $('.grandtotal .price').html(response.totalPrice);
             $('.cartbox__total__title').siblings().html(response.totalPrice);
         },
-        error: function (request, error) {
-            alert(" Error: " + arguments);
+        error: function () {
+            alert(Lang.get('en.cart.error'));
         }
     }
     e.preventDefault();
     $.ajax(options);
 });
 
-$(document).on('click', '.add-btn', function(e){
-    var token = $('meta[name="csrf-token"]').attr('content');
-    var id = $(this).attr('id');
-    var quantity = $('.quantity').val();
-    var url = '/cart/' + id;
-    var options = {
-        url:url,
-        method:'PUT',
-        data:{
-            quantity : quantity,
-            id : id,
-            _token: token,
-        },
-        success:function(response)
-        {
-            $('.cartbox-wrap').addClass('cartbox-wrap is-visible');
-            $('.totalQty').html(response.totalQty);
-            $('.grandtotal .price').html( '$'+ response.totalPrice);
-            $('.cartbox__total__title').siblings().html('$' + response.totalPrice);
-            $('#cartbox__item' + response.product.id).remove();
+$(document).ready(function(){
+    $(".number_quantity").change(function(){
+        var oldprice = $(this).parent().next().text().slice(1);
+        var quantity =  $(this).val();
+        var price = $(this).parent().prev().children().text().slice(1);
+        var totalPrice = parseInt($('.totalPrice').text().slice(1));
+        var subtotal = totalPrice  + quantity*price - oldprice ;
+        $(this).parent().next().html(Lang.get('en.cart.dollar') + quantity*price);
+        $('.totalPrice').html(Lang.get('en.cart.dollar') + subtotal);
+    });
+});
 
-            $('.cartbox__items').append(
-                "  <div class='cartbox__item' id = 'cartbox__item" + response.product.id +"'>" +
-                "      <div class='cartbox__item__thumb'>" +
-                "          <a href='/product/" + response.product.slug +"'>" +
-                "              <img src='http://"+ window.location.hostname +':'+ window.location.port + "/storage/uploads/cover_images/" + response.image +"' alt='"+ response.product.name +"'>" +
-                "          </a>" +
-                "      </div>" +
-                "      <div class='cartbox__item__content'>" +
-                "          <h5><a href='' class='product-name' > " + response.product.name + "</a></h5>" +
-                "              <p>Qty:<span>" + response.cart[id].quantity + "</span></p>" +
-                "                                <span class='price'> $" + response.cart[id].price  + " </span>" +
-                "      </div>" +
-                "<button class='cartbox__item__remove'>" +
-                "  <i class='delete-item fa fa-trash' id='" + response.product.id + "'></i>" +
-                "</button>" +
-                "  </div>");
-        },
-        error: function (err) {
-            if(arguments[2] === 'Unauthorized'){
-                $('.accountbox-wrapper').addClass('accountbox-wrapper is-visible');
-            }else{
-                alert(" Error: " + err);
+$(document).ready(function(){
+    $(".input_quantity").change(function(e){
+        var id = $(this).attr('id');
+        var quantity =  $(this).val();
+        console.log(quantity);
+        var url = '/checkCart/' + id;
+        var options = {
+            url:url,
+            method:'GET',
+            data:{
+                quantity : quantity,
+                id : id,
+            },
+            success:function(response)
+            {
+                console.log(response.status);
+                if (!response.status) {
+                    if (response.quantity === 0) {
+                        alert(Lang.get('en.cart.out_of'));
+                        $('.input_quantity').val(response.quantity);
+                        location.reload();
+                    } else {
+                        alert("Just have " + response.quantity );
+                        $('.input_quantity').val(response.quantity);
+                    }
+                }
+            },
+            error: function (err) {
+                if(arguments[2] === 'Unauthorized'){
+                    $('.accountbox-wrapper').addClass('accountbox-wrapper is-visible');
+                }else{
+                    alert(Lang.get('en.cart.error'));
+                }
             }
         }
+        e.preventDefault();
+        $.ajax(options);
+    });
+});
+
+$(document).on('click', '.add-btn', function(e){
+    var token = $('meta[name="csrf-token"]').attr('content');
+    var quantity = $('.quantity').val();
+    if(quantity > 0 ) {
+        var id = $(this).attr('id');
+        var url = '/cart/' + id;
+        var options = {
+            url:url,
+            method:'PUT',
+            data:{
+                quantity : quantity,
+                id : id,
+                _token: token,
+            },
+            success:function(response)
+            {
+                if (response.status) {
+                    $('.cartbox-wrap').addClass('cartbox-wrap is-visible');
+                    $('.totalQty').html(response.totalQty);
+                    $('.grandtotal .price').html( '$'+ response.totalPrice);
+                    $('.cartbox__total__title').siblings().html('$' + response.totalPrice);
+                    $('#cartbox__item' + response.product.id).remove();
+
+                    $('.cartbox__items').append(
+                        "  <div class='cartbox__item' id = 'cartbox__item" + response.product.id +"'>" +
+                        "      <div class='cartbox__item__thumb'>" +
+                        "          <a href='/product/" + response.product.slug +"'>" +
+                        "              <img src='http://"+ window.location.hostname +':'+ window.location.port + "/storage/uploads/cover_images/" + response.image +"' alt='"+ response.product.name +"'>" +
+                        "          </a>" +
+                        "      </div>" +
+                        "      <div class='cartbox__item__content'>" +
+                        "          <h5><a href='' class='product-name' > " + response.product.name + "</a></h5>" +
+                        "              <p>Qty:<span>" + response.cart[id].quantity + "</span></p>" +
+                        "                                <span class='price'> $" + response.cart[id].price  + " </span>" +
+                        "      </div>" +
+                        "<button class='cartbox__item__remove'>" +
+                        "  <i class='delete-item fa fa-trash' id='" + response.product.id + "'></i>" +
+                        "</button>" +
+                        "  </div>");
+                } else {
+                    $('.cartbox-wrap').addClass('cartbox-wrap is-visible');
+                    $('.input_quantity').val(0);
+                    alert(Lang.get('en.cart.out_of'));
+                }
+            },
+            error: function (err) {
+                if(arguments[2] === 'Unauthorized'){
+                    $('.accountbox-wrapper').addClass('accountbox-wrapper is-visible');
+                }else{
+                    alert(Lang.get('en.cart.error'));
+                }
+            }
+        }
+        e.preventDefault();
+        $.ajax(options);
+    } else {
+        alert(Lang.get('en.cart.select_product'));
     }
-    e.preventDefault();
-    $.ajax(options);
+
 });
 
 var $rating = $('.rating-review li .fa');
@@ -119,7 +182,7 @@ $(document).on('click', '.review', function(e){
                 "        <div class='rev__meta d-flex justify-content-between'>" +
                 "            <span>"+ response.feedback.created_at +"</span>" +
                 "                <ul class='rating'>" +
-                "                    <li><i class='fa fa-star rate' > x "+ point+"</i></li>" +
+                "                    <li><i class='fa fa-star rate' > x "+ point + "</i></li>" +
                 "                </ul>" +
                 "        </div>" +
                 "        <p>" + content +"</p>" +
@@ -128,7 +191,7 @@ $(document).on('click', '.review', function(e){
             )
         },
         error: function (err) {
-            alert(" Error: " + err);
+            console.log(arguments);
         }
     }
     e.preventDefault();

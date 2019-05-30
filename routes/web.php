@@ -64,7 +64,13 @@ Route::resource('checkout', 'CheckoutController')->only([
 Route::resource('cart', 'CartController')->only([
     'index',
     'update',
-    'destroy',
+    'store',
+    'destroy'
+]);
+
+Route::get('/checkCart/{id}', [
+    'as' => 'cart.check',
+    'uses' => 'CartController@checkQuantityAjax',
 ]);
 
 Route::group(['prefix' => 'notifications'], function () {
