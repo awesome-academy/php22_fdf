@@ -21,7 +21,7 @@
                 @lang('header.product.col_quantity')
             </th>
             <th>
-                @lang('header.category.col_edit')
+                @lang('header.category.col_action')
             </th>
             <th>
                 @lang('header.product.col_trash')
@@ -46,18 +46,12 @@
                     <td>
                         {{ $product->quantity }}
                     </td>
-                    <td>
-                        <a href="{{route('product.restore', ['id' => $product->id]) }}" class=" btn btn-primary">
-                            @lang('header.product.col_restore')
-                        </a>
-                    </td>
-                    <td>
-                        @if ($index)
-                            @include('admin.products.index')
-                        @else
-                            @include('admin.products.trashed')
-                        @endif
-                    </td>
+                    @if ($index)
+                        @include('admin.products.index')
+                    @else
+                        @include('admin.products.trashed')
+                    @endif
+
                 </tr>
             @endforeach
         @else

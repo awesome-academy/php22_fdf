@@ -36,7 +36,7 @@
                 <label class="input-group-text" for="inputGroupSelect01">@lang('header.order.option')</label>
             </div>
             <select class="custom-select" id="choice">
-                <option value="all">@lang('header.order.all')</option>
+                <option value="all" >@lang('header.order.all')</option>
                 <option value="Done">@lang('header.order.done')</option>
                 <option value="Pending">@lang('header.order.pending')</option>
                 <option value="Reject">@lang('message.status_reject')</option>
@@ -46,7 +46,7 @@
             </select>
         </div>
         @foreach ($transactions as $transaction)
-            <table class="table choice code{{$transaction->id}} {{ $transaction->getStatus() }}}">
+            <table class="table choice code{{$transaction->id}} {{ $transaction->getStatus() }}">
                 <thead class="thead-dark">
                 <tr>
                     <th colspan="6">
