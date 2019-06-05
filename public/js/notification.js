@@ -78,7 +78,7 @@ function makeNotificationText(notification) {
     return text;
 }
 
-$(document).on('click', '.seenSingle', function(e){
+$(document).on('click', '.seenSingle', function(){
     $(this).parent().removeClass('unseen');
     var id = $(this).attr('id');
     var direct = $(this). attr("href");
@@ -94,13 +94,11 @@ $(document).on('click', '.seenSingle', function(e){
             if($('#count-notification').html() > 0){
                 $('#count-notification').html($('#count-notification').html() - 1);
             }
-            window.location = direct;
         },
         error: function (request, error) {
             alert( Lang.get('en.notify.error_ajax') + error);
         }
     }
-    e.preventDefault();
     $.ajax(options);
 });
 
@@ -120,4 +118,22 @@ $(document).on('click', '.seenAll', function(e){
     }
     e.preventDefault();
     $.ajax(options);
+});
+
+$(document).ready(function() {
+    var url  = window.location.href;
+    if (url.indexOf('#') !== -1) {
+        var hash = window.location.hash;
+        var content = hash.slice(1);
+        var target = '';
+        if (content === 'pending'){
+            target = '.Pending';
+            $('.custom-select').val('Pending');
+        } else {
+            target = '.code' + content;
+            $('.custom-select').val('code' + content);
+        }
+        $('.choice').hide();
+        $(target).show();
+    }
 });

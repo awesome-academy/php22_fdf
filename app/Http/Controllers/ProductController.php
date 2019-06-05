@@ -98,7 +98,7 @@ class ProductController extends Controller
     public function edit($id)
     {
         try {
-            $product = $this->categoryRepository->getById($id);
+            $product = $this->productRepository->getById($id);
         } catch (\Exception $e) {
             Session::flash('fail', @trans('message.fail.product.edit_product'));
 
